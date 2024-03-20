@@ -27,6 +27,7 @@ class PokemonViewModel {
                 self.pokemon = pokemon
                 self.onDataLoaded?()
             case .failure(let error):
+                self.showErrorAlert?(error.errorMessage)
                 print(error.errorMessage)
             }
         }

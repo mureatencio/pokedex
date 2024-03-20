@@ -24,7 +24,7 @@ class PokemonDetailsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationItem.title = NSLocalizedString("Title_PokemonList", comment: "Main list title")
+        self.navigationItem.title = NSLocalizedString("Title_PokemonDetails", comment: "Main list title")
         setupScrollView()
         setupLoadingIndicator()
         setupLayout()
@@ -52,7 +52,9 @@ class PokemonDetailsViewController: UIViewController {
     
     private func showErrorAlert(message: String) {
         let alert = UIAlertController(title: NSLocalizedString("AlertTitle_ErrorDialog", comment: "Error dialog title"), message: message, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: NSLocalizedString("AlertButton_Ok", comment: "Error dialog title"), style: .default, handler: nil))
+        alert.addAction(UIAlertAction(title: NSLocalizedString("AlertButton_Ok", comment: "Error dialog title"), style: .default, handler: { [weak self] _ in
+            self?.navigationController?.popViewController(animated: true)
+        }))
         self.present(alert, animated: true, completion: nil)
     }
     

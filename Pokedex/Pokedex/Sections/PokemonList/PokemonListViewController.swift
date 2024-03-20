@@ -13,14 +13,8 @@ class PokemonListViewController: UIViewController {
        PokemonListViewModel()
     }()
 
-    private var showActivityIndicator: Bool = true {
-        didSet {
-            if showActivityIndicator {
-                loadingIndicator.startAnimating()
-            } else {
-                loadingIndicator.stopAnimating()
-            }
-        }
+    private func showActivityIndicator(_ show: Bool) {
+        show ? loadingIndicator.startAnimating() : loadingIndicator.stopAnimating()
     }
     
     override func viewDidLoad() {
@@ -34,7 +28,7 @@ class PokemonListViewController: UIViewController {
     func initViewModel() {
         pokemonListViewModel.reloadTableViewRows = { [weak self] newIndexPaths in
             DispatchQueue.main.async {
-                self?.showActivityIndicator = false
+                self?.showActivityIndicator(false)
                 self?.tableView.insertRows(at: newIndexPaths, with: .automatic)
             }
         }
@@ -44,7 +38,7 @@ class PokemonListViewController: UIViewController {
             }
         }
         DispatchQueue.main.async {
-            self.showActivityIndicator = true
+            self.showActivityIndicator(true)
         }
         pokemonListViewModel.getPokemonList()
     }
@@ -83,7 +77,10 @@ class PokemonListViewController: UIViewController {
     
     private func showErrorAlert(message: String) {
         let alert = UIAlertController(title: NSLocalizedString("AlertTitle_ErrorDialog", comment: "Error dialog title"), message: message, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: NSLocalizedString("AlertButton_Ok", comment: "Error dialog title"), style: .default, handler: nil))
+        alert.addAction(UIAlertAction(title: NSLocalizedString("AlertButton_Retry", comment: "Error dialog retry button"), style: .default, handler: { [weak self] _ in
+            self?.showActivityIndicator(true)
+            self?.pokemonListViewModel.getPokemonList()
+        }))
         self.present(alert, animated: true, completion: nil)
     }
     
@@ -96,7 +93,8 @@ extension PokemonListViewController: UITableViewDataSource, UITableViewDelegate,
     
     func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {
         print(indexPaths)
-        if indexPaths.contains(where: isLoadingCell) && !pokemonListViewModel.isFetchingData && !pokemonListViewModel.hasReachedEnd {
+        if indexPaths.contains(where: isLoadingCell) {
+            showActivityIndicator(true)
             pokemonListViewModel.getPokemonList()
         }
     }
