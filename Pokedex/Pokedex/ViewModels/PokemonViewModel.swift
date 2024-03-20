@@ -6,9 +6,7 @@
 import Foundation
 
 class PokemonViewModel {
-    
     private var service: APIServiceProtocol
-    
     private var pokemon: Pokemon?
     
     var onDataLoaded: (() -> Void)?

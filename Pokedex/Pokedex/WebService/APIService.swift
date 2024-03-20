@@ -5,7 +5,6 @@
 
 import Foundation
 
-
 enum NetworkError: Error {
     case badUrl
     case invalidData
@@ -31,7 +30,6 @@ protocol APIServiceProtocol {
 }
 
 class APIService: APIServiceProtocol {
-    
     private let pageSize = 50
     
     func getPokemonCharacters(offset: Int, completion: @escaping (Result<PokemonServiceResponse, NetworkError>) -> Void){

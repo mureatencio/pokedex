@@ -8,24 +8,17 @@ import Foundation
 class PokemonListViewModel {
     
     private var service: APIServiceProtocol
+    private var isFetchingData = false
+    private var reachEnd = false
+    var pokemonViewModels: [PokemonListItemViewModel] = []
     
     init(service: APIServiceProtocol = APIService() ) {
         self.service = service
     }
     
-    var isFetchingData = false
-
-    var hasReachedEnd: Bool {
-        return reachEnd
-    }
-    private var reachEnd = false
-    
     var reloadTableViewRows: (([IndexPath]) -> Void)?
-    
     var showErrorAlert: ((String) -> Void)?
 
-    var pokemonViewModels: [PokemonListItemViewModel] = []
-    
     func getPokemonList() {
         guard !isFetchingData && !reachEnd else { return }
         isFetchingData = true
@@ -45,14 +38,12 @@ class PokemonListViewModel {
                     let endIndex = self.pokemonViewModels.count
                     let indexPaths = (startIndex..<endIndex).map { IndexPath(row: $0, section: 0) }
                     self.reloadTableViewRows?(indexPaths)
-
                 case .failure(let error):
                     self.showErrorAlert?(error.errorMessage)
                 }
             }
         }
     }
-
 }
 
 struct PokemonListItemViewModel {

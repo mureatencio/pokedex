@@ -114,6 +114,7 @@ extension PokemonListViewController: UITableViewDataSource, UITableViewDelegate,
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
         let selectedPokemonUrl = self.pokemonListViewModel.pokemonViewModels[indexPath.row].url
         let detailsVC = PokemonDetailsViewController()
         detailsVC.pokemonViewModel = PokemonViewModel(url: selectedPokemonUrl)

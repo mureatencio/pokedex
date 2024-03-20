@@ -24,7 +24,6 @@ class PokemonDetailsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationItem.title = NSLocalizedString("Title_PokemonDetails", comment: "Main list title")
         setupScrollView()
         setupLoadingIndicator()
         setupLayout()
@@ -101,11 +100,9 @@ class PokemonDetailsViewController: UIViewController {
         weightLabel.translatesAutoresizingMaskIntoConstraints = false
         typesLabel.translatesAutoresizingMaskIntoConstraints = false
         baseExperienceLabel.translatesAutoresizingMaskIntoConstraints = false
-        let audioControlContainer = UIView()
-        audioControlContainer.translatesAutoresizingMaskIntoConstraints = false
         
         // Add components to contentView
-        [imageView, nameLabel, idLabel, heightLabel, weightLabel, typesLabel, baseExperienceLabel, audioControlContainer].forEach {
+        [imageView, nameLabel, idLabel, heightLabel, weightLabel, typesLabel, baseExperienceLabel].forEach {
             contentView.addSubview($0)
         }
         
@@ -134,16 +131,13 @@ class PokemonDetailsViewController: UIViewController {
             baseExperienceLabel.topAnchor.constraint(equalTo: typesLabel.bottomAnchor, constant: 10),
             baseExperienceLabel.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
             
-            audioControlContainer.topAnchor.constraint(equalTo: baseExperienceLabel.bottomAnchor, constant: 20),
-            audioControlContainer.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
-            audioControlContainer.widthAnchor.constraint(equalToConstant: 200), // Arbitrary size, adjust as needed
-            audioControlContainer.heightAnchor.constraint(equalToConstant: 50), // Arbitrary size, adjust as needed
-            
-            contentView.bottomAnchor.constraint(equalTo: audioControlContainer.bottomAnchor, constant: 20)
+ 
+            contentView.bottomAnchor.constraint(equalTo: baseExperienceLabel.bottomAnchor, constant: 20)
         ])
     }
     
     private func updateUI() {
+        self.navigationItem.title = pokemonViewModel.DisplayName
         nameLabel.text = pokemonViewModel.DisplayName
         nameLabel.font = UIFont.boldSystemFont(ofSize: 24)
         idLabel.text = pokemonViewModel.displayIdentifier
