@@ -1,0 +1,108 @@
+{
+  "sourceLanguage" : "en",
+  "strings" : {
+    "AlertButton_Ok" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ok"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aceptar"
+          }
+        }
+      }
+    },
+    "AlertTitle_ErrorDialog" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Error"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Error"
+          }
+        }
+      }
+    },
+    "Error_BadUrl" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The URL provided was invalid. Please try again."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "La URL proporcionada no es válida. Inténtalo de nuevo."
+          }
+        }
+      }
+    },
+    "Error_DecodingError" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "There was an error decoding the data. Please try again later."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hubo un error al decodificar los datos. Por favor, inténtalo más tarde."
+          }
+        }
+      }
+    },
+    "Error_InvalidData" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The data received from the server was invalid. Please check your network connection and try again."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Los datos recibidos del servidor son inválidos. Verifica tu conexión a la red e inténtalo de nuevo."
+          }
+        }
+      }
+    },
+    "Title_PokemonList" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "List of Pokemon"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lista de Pokemon"
+          }
+        }
+      }
+    }
+  },
+  "version" : "1.0"
+}

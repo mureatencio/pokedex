@@ -25,7 +25,7 @@ class PokemonListViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationItem.title = "List of Pokemon"
+        self.navigationItem.title = NSLocalizedString("Title_PokemonList", comment: "Main list title")
         setupTableView()
         setupLoadingIndicator()
         initViewModel()
@@ -82,8 +82,8 @@ class PokemonListViewController: UIViewController {
     }
     
     private func showErrorAlert(message: String) {
-        let alert = UIAlertController(title: "Error", message: message, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        let alert = UIAlertController(title: NSLocalizedString("AlertTitle_ErrorDialog", comment: "Error dialog title"), message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: NSLocalizedString("AlertButton_Ok", comment: "Error dialog title"), style: .default, handler: nil))
         self.present(alert, animated: true, completion: nil)
     }
     

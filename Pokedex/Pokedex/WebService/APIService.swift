@@ -16,11 +16,11 @@ extension NetworkError {
     var errorMessage: String {
         switch self {
         case .badUrl:
-            return "The URL provided was invalid. Please try again."
+            return NSLocalizedString("Error_BadUrl", comment: "Invalid URL error")
         case .invalidData:
-            return "The data received from the server was invalid. Please check your network connection and try again."
+            return NSLocalizedString("Error_InvalidData", comment: "Invalid data error")
         case .decodingError:
-            return "There was an error decoding the data. Please try again later."
+            return NSLocalizedString("Error_DecodingError", comment: "Decoding error")
         }
     }
 }
