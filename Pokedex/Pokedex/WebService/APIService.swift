@@ -27,6 +27,7 @@ extension NetworkError {
 
 protocol APIServiceProtocol {
     func getPokemonCharacters(offset: Int, completion: @escaping (Result<PokemonServiceResponse, NetworkError>) -> Void)
+    func getPokemonDetails(for url: String, completion: @escaping (Result<Pokemon, NetworkError>) -> Void)
 }
 
 class APIService: APIServiceProtocol {
@@ -50,6 +51,30 @@ class APIService: APIServiceProtocol {
                 let decoder = JSONDecoder()
                 let pokemonResponse = try decoder.decode(PokemonServiceResponse.self, from: data)
                 completion(.success(pokemonResponse))
+            } catch {
+                completion(.failure(.decodingError))
+                return
+            }
+        }.resume()
+    }
+    
+    func getPokemonDetails(for url: String, completion: @escaping (Result<Pokemon, NetworkError>) -> Void) {
+        let configuration = URLSessionConfiguration.default
+        let session = URLSession(configuration: configuration)
+        guard let url = URL(string: url) else {
+            completion(.failure(.badUrl))
+            return
+        }
+        
+        session.dataTask(with: url) { data, response, error in
+            guard let data = data, error == nil else {
+                completion(.failure(.invalidData))
+                return
+            }
+            do {
+                let decoder = JSONDecoder()
+                let pokemon = try decoder.decode(Pokemon.self, from: data)
+                completion(.success(pokemon))
             } catch {
                 completion(.failure(.decodingError))
                 return

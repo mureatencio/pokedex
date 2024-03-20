@@ -24,7 +24,7 @@ class PokemonListViewModel {
     
     var showErrorAlert: ((String) -> Void)?
 
-    var pokemonViewModels: [PokemonViewModel] = []
+    var pokemonViewModels: [PokemonListItemViewModel] = []
     
     func getPokemonList() {
         guard !isFetchingData && !reachEnd else { return }
@@ -37,7 +37,7 @@ class PokemonListViewModel {
                 self.isFetchingData = false
                 switch result {
                 case .success(let pokemonResponse):
-                    let newPokemons = pokemonResponse.results.map(PokemonViewModel.init)
+                    let newPokemons = pokemonResponse.results.map(PokemonListItemViewModel.init)
                     self.pokemonViewModels.append(contentsOf: newPokemons)
                     self.reachEnd = pokemonResponse.next == nil
                     
@@ -55,16 +55,12 @@ class PokemonListViewModel {
 
 }
 
-struct PokemonViewModel {
-    
-    fileprivate let pokemon: Pokemon
-    
+struct PokemonListItemViewModel {
+    fileprivate let pokemon: PokemonListItem
     var name: String {
         pokemon.name
     }
-    
     var url: String {
         pokemon.url
     }
-    
 }

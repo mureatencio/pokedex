@@ -114,4 +114,11 @@ extension PokemonListViewController: UITableViewDataSource, UITableViewDelegate,
         cell.textLabel?.text = pokemonListViewModel.pokemonViewModels[indexPath.row].name.capitalized
         return cell
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let selectedPokemonUrl = self.pokemonListViewModel.pokemonViewModels[indexPath.row].url
+        let detailsVC = PokemonDetailsViewController()
+        detailsVC.pokemonViewModel = PokemonViewModel(url: selectedPokemonUrl)
+        self.navigationController?.pushViewController(detailsVC, animated: true)
+    }
 }
