@@ -171,6 +171,23 @@
         }
       }
     },
+    "Title_PokemonDetails" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pokemon Details"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Detalles del Pokemon"
+          }
+        }
+      }
+    },
     "Title_PokemonList" : {
       "extractionState" : "manual",
       "localizations" : {

@@ -24,6 +24,7 @@ class PokemonDetailsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.navigationItem.title = NSLocalizedString("Title_PokemonList", comment: "Main list title")
         setupScrollView()
         setupLoadingIndicator()
         setupLayout()

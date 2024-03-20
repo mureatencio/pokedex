@@ -9,7 +9,7 @@ import UIKit
 class ImageLoader {
     static func loadImage(urlString: String?, into imageView: UIImageView) {
         // Define a default placeholder image
-        let defaultPlaceholder = UIImage(named: "defaultPlaceholder")
+        let defaultPlaceholder = UIImage(named: "pokeball")
         
         guard let urlString = urlString, let url = URL(string: urlString) else {
             imageView.image = defaultPlaceholder
