@@ -25,17 +25,22 @@ class PokemonListViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationItem.title = "List of Pokemons"
+        self.navigationItem.title = "List of Pokemon"
         setupTableView()
         setupLoadingIndicator()
         initViewModel()
     }
     
     func initViewModel() {
-        pokemonListViewModel.reloadTableView = { [weak self] in
+        pokemonListViewModel.reloadTableViewRows = { [weak self] newIndexPaths in
             DispatchQueue.main.async {
                 self?.showActivityIndicator = false
-                self?.tableView.reloadData()
+                self?.tableView.insertRows(at: newIndexPaths, with: .automatic)
+            }
+        }
+        pokemonListViewModel.showErrorAlert = { [weak self] message in
+            DispatchQueue.main.async {
+                self?.showErrorAlert(message: message)
             }
         }
         DispatchQueue.main.async {
@@ -47,7 +52,7 @@ class PokemonListViewController: UIViewController {
     private func setupLoadingIndicator() {
         loadingIndicator.translatesAutoresizingMaskIntoConstraints = false
         loadingIndicator.hidesWhenStopped = true
-        loadingIndicator.style = .medium
+        loadingIndicator.style = .large
         view.addSubview(loadingIndicator)
         
         NSLayoutConstraint.activate([
@@ -76,13 +81,14 @@ class PokemonListViewController: UIViewController {
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
     }
     
-    private func showErrorAlert() {
-        let alert = UIAlertController(title: "Error", message: "Something went wrong", preferredStyle: .alert)
+    private func showErrorAlert(message: String) {
+        let alert = UIAlertController(title: "Error", message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
         self.present(alert, animated: true, completion: nil)
     }
     
     private func isLoadingCell(for indexPath: IndexPath) -> Bool {
-        return indexPath.row >= (pokemonListViewModel.pokemonViewModels.count - 10)
+        return indexPath.row >= (pokemonListViewModel.pokemonViewModels.count - 1)
     }
 }
 

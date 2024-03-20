@@ -12,16 +12,31 @@ enum NetworkError: Error {
     case decodingError
 }
 
+extension NetworkError {
+    var errorMessage: String {
+        switch self {
+        case .badUrl:
+            return "The URL provided was invalid. Please try again."
+        case .invalidData:
+            return "The data received from the server was invalid. Please check your network connection and try again."
+        case .decodingError:
+            return "There was an error decoding the data. Please try again later."
+        }
+    }
+}
+
 protocol APIServiceProtocol {
     func getPokemonCharacters(offset: Int, completion: @escaping (Result<PokemonServiceResponse, NetworkError>) -> Void)
 }
 
 class APIService: APIServiceProtocol {
     
+    private let pageSize = 50
+    
     func getPokemonCharacters(offset: Int, completion: @escaping (Result<PokemonServiceResponse, NetworkError>) -> Void){
         let configuration = URLSessionConfiguration.default
         let session = URLSession(configuration: configuration)
-        guard let url = URL(string: "https://pokeapi.co/api/v2/pokemon/?offset=\(offset)&limit=50") else {
+        guard let url = URL(string: "https://pokeapi.co/api/v2/pokemon/?offset=\(offset)&limit=\(pageSize)") else {
             completion(.failure(.badUrl))
             return
         }

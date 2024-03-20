@@ -20,29 +20,34 @@ class PokemonListViewModel {
     }
     private var reachEnd = false
     
-    var reloadTableView: (() -> Void)?
+    var reloadTableViewRows: (([IndexPath]) -> Void)?
     
-    var pokemonViewModels: [PokemonViewModel] = [] {
-        didSet {
-            reloadTableView?()
-        }
-    }
-  
+    var showErrorAlert: ((String) -> Void)?
+
+    var pokemonViewModels: [PokemonViewModel] = []
+    
     func getPokemonList() {
         guard !isFetchingData && !reachEnd else { return }
         isFetchingData = true
-        
+        let startIndex = pokemonViewModels.count
+
         service.getPokemonCharacters(offset: pokemonViewModels.count) { [weak self] result in
             guard let self = self else { return }
             DispatchQueue.main.async {
                 self.isFetchingData = false
                 switch result {
                 case .success(let pokemonResponse):
-                    self.pokemonViewModels.append(contentsOf: pokemonResponse.results.map(PokemonViewModel.init))
+                    let newPokemons = pokemonResponse.results.map(PokemonViewModel.init)
+                    self.pokemonViewModels.append(contentsOf: newPokemons)
                     self.reachEnd = pokemonResponse.next == nil
+                    
+                    // Calculate the indices of the new rows
+                    let endIndex = self.pokemonViewModels.count
+                    let indexPaths = (startIndex..<endIndex).map { IndexPath(row: $0, section: 0) }
+                    self.reloadTableViewRows?(indexPaths)
+
                 case .failure(let error):
-                    print(error)
-                    // TODO: Handle error, e.g., by showing an alert or a placeholder view
+                    self.showErrorAlert?(error.errorMessage)
                 }
             }
         }
