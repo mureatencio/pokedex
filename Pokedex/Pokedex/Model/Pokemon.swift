@@ -5,6 +5,8 @@
 
 import Foundation
 
+// MARK: - Pokemon
+
 struct Pokemon: Codable {
     let baseExperience: Int
     let cries: Cries
@@ -21,6 +23,8 @@ struct Pokemon: Codable {
         case cries, height, name, sprites, types, weight
     }
 }
+
+// MARK: - Nested types
 
 struct Cries: Codable {
     let latest: String

@@ -5,6 +5,8 @@
 
 import Foundation
 
+// MARK: - URLSession Protocols to allow mocking
+
 protocol URLSessionProtocol {
     func dataTask(with url: URL, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) -> URLSessionDataTaskProtocol
 }

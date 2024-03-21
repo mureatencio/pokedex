@@ -5,6 +5,7 @@
 
 import Foundation
 
+// MARK: - Network Errors
 enum NetworkError: Error {
     case badUrl
     case invalidData
@@ -24,18 +25,26 @@ extension NetworkError {
     }
 }
 
+// MARK: - API Service Protocol definition
+
 protocol APIServiceProtocol {
     func getPokemonCharacters(offset: Int, completion: @escaping (Result<PokemonServiceResponse, NetworkError>) -> Void)
     func getPokemonDetails(for url: String, completion: @escaping (Result<Pokemon, NetworkError>) -> Void)
 }
 
+// MARK: - API Service implementation
+
 class APIService: APIServiceProtocol {
+    // MARK: - Properties
     private let session: URLSessionProtocol
     private let pageSize = 50
     
+    // MARK: - Init
     init(session: URLSessionProtocol = URLSession.shared) {
         self.session = session
     }
+    
+    // MARK: - API call to fetch Pokemon characters list
     
     func getPokemonCharacters(offset: Int, completion: @escaping (Result<PokemonServiceResponse, NetworkError>) -> Void){
         guard let url = URL(string: "https://pokeapi.co/api/v2/pokemon/?offset=\(offset)&limit=\(pageSize)") else {
@@ -58,6 +67,8 @@ class APIService: APIServiceProtocol {
             }
         }.resume()
     }
+    
+    // MARK: - API call to fetch Pokemon details
     
     func getPokemonDetails(for url: String, completion: @escaping (Result<Pokemon, NetworkError>) -> Void) {
         guard let url = URL(string: url) else {

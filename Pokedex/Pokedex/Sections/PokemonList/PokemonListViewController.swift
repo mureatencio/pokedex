@@ -6,17 +6,17 @@
 import UIKit
 
 class PokemonListViewController: UIViewController {
-    private let tableView = UITableView()
-    private let loadingIndicator = UIActivityIndicatorView()
     
+    // MARK: - Properties
     lazy var pokemonListViewModel: PokemonListViewModel = {
        PokemonListViewModel()
     }()
 
-    private func showActivityIndicator(_ show: Bool) {
-        show ? loadingIndicator.startAnimating() : loadingIndicator.stopAnimating()
-    }
+    // MARK: - UI Components
+    private let tableView = UITableView()
+    private let loadingIndicator = UIActivityIndicatorView()
     
+    // MARK: - View Controller Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationItem.title = NSLocalizedString("Title_PokemonList", comment: "Main list title")
@@ -25,6 +25,7 @@ class PokemonListViewController: UIViewController {
         initViewModel()
     }
     
+    // MARK: - View Model setup
     func initViewModel() {
         pokemonListViewModel.reloadTableViewRows = { [weak self] newIndexPaths in
             DispatchQueue.main.async {
@@ -43,6 +44,7 @@ class PokemonListViewController: UIViewController {
         pokemonListViewModel.getPokemonList()
     }
     
+    // MARK: - Autolayout setup
     private func setupLoadingIndicator() {
         loadingIndicator.translatesAutoresizingMaskIntoConstraints = false
         loadingIndicator.hidesWhenStopped = true
@@ -75,19 +77,32 @@ class PokemonListViewController: UIViewController {
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
     }
     
+    // MARK: - Error dialog handling
+    
     private func showErrorAlert(message: String) {
         let alert = UIAlertController(title: NSLocalizedString("AlertTitle_ErrorDialog", comment: "Error dialog title"), message: message, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: NSLocalizedString("AlertButton_Retry", comment: "Error dialog retry button"), style: .default, handler: { [weak self] _ in
+            // Retry button pressed
             self?.showActivityIndicator(true)
             self?.pokemonListViewModel.getPokemonList()
         }))
         self.present(alert, animated: true, completion: nil)
     }
     
+    // MARK: - Activity Indicator handling
+    
     private func isLoadingCell(for indexPath: IndexPath) -> Bool {
         return indexPath.row >= (pokemonListViewModel.pokemonViewModels.count - 1)
     }
+    
+    // MARK: - Activity Indicator visibility
+    
+    private func showActivityIndicator(_ show: Bool) {
+        show ? loadingIndicator.startAnimating() : loadingIndicator.stopAnimating()
+    }
 }
+
+// MARK: - Table View Delegates and DataSource
 
 extension PokemonListViewController: UITableViewDataSource, UITableViewDelegate, UITableViewDataSourcePrefetching {
     

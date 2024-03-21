@@ -6,17 +6,21 @@
 import Foundation
 
 class PokemonViewModel {
+    // MARK: - Properties
     private var service: APIServiceProtocol
     private var pokemon: Pokemon?
     
+    // MARK: - Closures
     var onDataLoaded: (() -> Void)?
     var showErrorAlert: ((String) -> Void)?
     
+    // MARK: - Init
     init(service: APIServiceProtocol = APIService(), url: String) {
         self.service = service
         fetchPokemonDetails(from: url)
     }
     
+    // MARK: - Fetch Data
     func fetchPokemonDetails(from url: String) {
         service.getPokemonDetails(for: url) { [weak self] detailedPokemon in
             guard let self = self else { return }

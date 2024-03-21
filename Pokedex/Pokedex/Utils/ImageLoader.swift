@@ -6,6 +6,7 @@
 import Kingfisher
 import UIKit
 
+// Utility class to load images from a URL into a UIImageView
 class ImageLoader {
     static func loadImage(urlString: String?, into imageView: UIImageView) {
         // Define a default placeholder image

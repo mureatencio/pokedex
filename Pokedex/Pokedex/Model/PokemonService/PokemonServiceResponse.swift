@@ -5,6 +5,8 @@
 
 import Foundation
 
+// MARK: - PokemonServiceResponse
+
 struct PokemonServiceResponse: Codable {
     let count: Int
     let next: String?

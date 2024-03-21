@@ -7,11 +7,12 @@ import UIKit
 
 class PokemonDetailsViewController: UIViewController {
     
+    // MARK: - Properties
     var pokemonViewModel: PokemonViewModel!
     
+    // MARK: - UI Components
     private let scrollView = UIScrollView()
     private let contentView = UIView()
-    
     private let imageView = UIImageView()
     private let nameLabel = UILabel()
     private let idLabel = UILabel()
@@ -19,8 +20,9 @@ class PokemonDetailsViewController: UIViewController {
     private let baseExperienceLabel = UILabel()
     private let heightLabel = UILabel()
     private let weightLabel = UILabel()
-    
     private let loadingIndicator = UIActivityIndicatorView()
+    
+    // MARK: - View Controller Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,6 +32,8 @@ class PokemonDetailsViewController: UIViewController {
         initViewModel()
     }
 
+    // MARK: - View Model setup
+    
     func initViewModel() {
         pokemonViewModel.onDataLoaded = { [weak self] in
             DispatchQueue.main.async {
@@ -45,17 +49,7 @@ class PokemonDetailsViewController: UIViewController {
         }
     }
     
-    private func showActivityIndicator(_ show: Bool) {
-        show ? loadingIndicator.startAnimating() : loadingIndicator.stopAnimating()
-    }
-    
-    private func showErrorAlert(message: String) {
-        let alert = UIAlertController(title: NSLocalizedString("AlertTitle_ErrorDialog", comment: "Error dialog title"), message: message, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: NSLocalizedString("AlertButton_Ok", comment: "Error dialog title"), style: .default, handler: { [weak self] _ in
-            self?.navigationController?.popViewController(animated: true)
-        }))
-        self.present(alert, animated: true, completion: nil)
-    }
+    // MARK: - Autolayout setup
     
     private func setupScrollView() {
         view.backgroundColor = .white
@@ -90,6 +84,7 @@ class PokemonDetailsViewController: UIViewController {
         ])
     }
     
+    // MARK: - UI Setup
     private func setupLayout() {
         // Initial setup for each UI component
         imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -136,6 +131,8 @@ class PokemonDetailsViewController: UIViewController {
         ])
     }
     
+    // MARK: - UI updates
+    
     private func updateUI() {
         self.navigationItem.title = pokemonViewModel.displayName
         nameLabel.text = pokemonViewModel.displayName
@@ -146,5 +143,20 @@ class PokemonDetailsViewController: UIViewController {
         typesLabel.text = pokemonViewModel.displayTypes
         baseExperienceLabel.text = pokemonViewModel.displayBaseExperience
         ImageLoader.loadImage(urlString: pokemonViewModel.imageUrl?.absoluteString, into: imageView)
+    }
+    
+    // MARK: - Activity Indicator visibility
+    private func showActivityIndicator(_ show: Bool) {
+        show ? loadingIndicator.startAnimating() : loadingIndicator.stopAnimating()
+    }
+    
+    // MARK: - Error Alert management
+    private func showErrorAlert(message: String) {
+        let alert = UIAlertController(title: NSLocalizedString("AlertTitle_ErrorDialog", comment: "Error dialog title"), message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: NSLocalizedString("AlertButton_Ok", comment: "Error dialog title"), style: .default, handler: { [weak self] _ in
+            // Pop view since there is nothing to show
+            self?.navigationController?.popViewController(animated: true)
+        }))
+        self.present(alert, animated: true, completion: nil)
     }
 }
