@@ -17,7 +17,7 @@ class PokemonViewModel {
         fetchPokemonDetails(from: url)
     }
     
-    private func fetchPokemonDetails(from url: String) {
+    func fetchPokemonDetails(from url: String) {
         service.getPokemonDetails(for: url) { [weak self] detailedPokemon in
             guard let self = self else { return }
             switch detailedPokemon {
@@ -32,7 +32,7 @@ class PokemonViewModel {
     }
     
     // Computed properties
-    var DisplayName: String {
+    var displayName: String {
         pokemon?.name.capitalized ?? ""
     }
     

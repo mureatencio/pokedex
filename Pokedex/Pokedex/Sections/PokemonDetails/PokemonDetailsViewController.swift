@@ -137,8 +137,8 @@ class PokemonDetailsViewController: UIViewController {
     }
     
     private func updateUI() {
-        self.navigationItem.title = pokemonViewModel.DisplayName
-        nameLabel.text = pokemonViewModel.DisplayName
+        self.navigationItem.title = pokemonViewModel.displayName
+        nameLabel.text = pokemonViewModel.displayName
         nameLabel.font = UIFont.boldSystemFont(ofSize: 24)
         idLabel.text = pokemonViewModel.displayIdentifier
         heightLabel.text = pokemonViewModel.displayHeight

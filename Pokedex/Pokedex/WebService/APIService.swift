@@ -30,11 +30,14 @@ protocol APIServiceProtocol {
 }
 
 class APIService: APIServiceProtocol {
+    private let session: URLSessionProtocol
     private let pageSize = 50
     
+    init(session: URLSessionProtocol = URLSession.shared) {
+        self.session = session
+    }
+    
     func getPokemonCharacters(offset: Int, completion: @escaping (Result<PokemonServiceResponse, NetworkError>) -> Void){
-        let configuration = URLSessionConfiguration.default
-        let session = URLSession(configuration: configuration)
         guard let url = URL(string: "https://pokeapi.co/api/v2/pokemon/?offset=\(offset)&limit=\(pageSize)") else {
             completion(.failure(.badUrl))
             return
@@ -57,8 +60,6 @@ class APIService: APIServiceProtocol {
     }
     
     func getPokemonDetails(for url: String, completion: @escaping (Result<Pokemon, NetworkError>) -> Void) {
-        let configuration = URLSessionConfiguration.default
-        let session = URLSession(configuration: configuration)
         guard let url = URL(string: url) else {
             completion(.failure(.badUrl))
             return
