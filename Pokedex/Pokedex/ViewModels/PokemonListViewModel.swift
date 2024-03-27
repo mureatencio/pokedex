@@ -20,13 +20,13 @@ class PokemonListViewModel {
     // MARK: - Closures
     var reloadTableViewRows: (([IndexPath]) -> Void)?
     var showErrorAlert: ((String) -> Void)?
-
+    
     // MARK: - Fetch Data
     func getPokemonList() {
         guard !isFetchingData && !reachEnd else { return }
         isFetchingData = true
         let startIndex = pokemonViewModels.count
-
+        
         service.getPokemonCharacters(offset: pokemonViewModels.count) { [weak self] result in
             guard let self = self else { return }
             DispatchQueue.main.async {
@@ -57,5 +57,10 @@ struct PokemonListItemViewModel {
     }
     var url: String {
         pokemon.url
+    }
+    var spriteUrl: String? {
+        // Extract the Pokémon ID from the details URL
+        guard let id = pokemon.url.split(separator: "/").last else { return nil }
+        return "\(PokemonAPI.APISpriteURL)/\(id).png"
     }
 }

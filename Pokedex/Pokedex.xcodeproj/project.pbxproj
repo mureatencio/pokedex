@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		490811302BB3D73800DFF127 /* PokemonTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4908112F2BB3D73800DFF127 /* PokemonTableViewCell.swift */; };
 		49B4479B2BABB346001D3FBD /* URLSessionProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49B4479A2BABB346001D3FBD /* URLSessionProtocol.swift */; };
 		49B4479E2BABB3B9001D3FBD /* MockURLSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49B4479D2BABB3B9001D3FBD /* MockURLSession.swift */; };
 		49B447A12BABB4DC001D3FBD /* APIServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49B447A02BABB4DC001D3FBD /* APIServiceTests.swift */; };
@@ -58,6 +59,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		4908112F2BB3D73800DFF127 /* PokemonTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonTableViewCell.swift; sourceTree = "<group>"; };
 		49B4479A2BABB346001D3FBD /* URLSessionProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSessionProtocol.swift; sourceTree = "<group>"; };
 		49B4479D2BABB3B9001D3FBD /* MockURLSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockURLSession.swift; sourceTree = "<group>"; };
 		49B447A02BABB4DC001D3FBD /* APIServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIServiceTests.swift; sourceTree = "<group>"; };
@@ -113,6 +115,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4908112E2BB3D72000DFF127 /* TableViewCells */ = {
+			isa = PBXGroup;
+			children = (
+				4908112F2BB3D73800DFF127 /* PokemonTableViewCell.swift */,
+			);
+			path = TableViewCells;
+			sourceTree = "<group>";
+		};
 		49B447992BABB329001D3FBD /* Session */ = {
 			isa = PBXGroup;
 			children = (
@@ -209,6 +219,7 @@
 		49B84D942BA928CE0015974C /* PokemonList */ = {
 			isa = PBXGroup;
 			children = (
+				4908112E2BB3D72000DFF127 /* TableViewCells */,
 				49B84D952BA928CE0015974C /* PokemonListViewController.swift */,
 			);
 			path = PokemonList;
@@ -430,6 +441,7 @@
 				49B84DB72BAB42DC0015974C /* Pokemon.swift in Sources */,
 				49B84DBB2BAB47F00015974C /* PokemonViewModel.swift in Sources */,
 				49B84DA02BA928CE0015974C /* APIService.swift in Sources */,
+				490811302BB3D73800DFF127 /* PokemonTableViewCell.swift in Sources */,
 				49B84D652BA928960015974C /* SceneDelegate.swift in Sources */,
 				49B84DA52BAA69C80015974C /* PokemonDetailsViewController.swift in Sources */,
 			);

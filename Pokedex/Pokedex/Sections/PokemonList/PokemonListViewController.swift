@@ -58,6 +58,7 @@ class PokemonListViewController: UIViewController {
     }
     
     private func setupTableView() {
+        tableView.register(PokemonTableViewCell.self, forCellReuseIdentifier: "PokemonTableViewCell")
         tableView.separatorColor = .clear
         tableView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(tableView)
@@ -107,7 +108,6 @@ class PokemonListViewController: UIViewController {
 extension PokemonListViewController: UITableViewDataSource, UITableViewDelegate, UITableViewDataSourcePrefetching {
     
     func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {
-        print(indexPaths)
         if indexPaths.contains(where: isLoadingCell) {
             showActivityIndicator(true)
             pokemonListViewModel.getPokemonList()
@@ -123,8 +123,13 @@ extension PokemonListViewController: UITableViewDataSource, UITableViewDelegate,
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-        cell.textLabel?.text = pokemonListViewModel.pokemonViewModels[indexPath.row].name.capitalized
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "PokemonTableViewCell", for: indexPath) as? PokemonTableViewCell else {
+            return UITableViewCell()
+        }
+        
+        let viewModel = pokemonListViewModel.pokemonViewModels[indexPath.row]
+        cell.configure(with: viewModel)
+        
         return cell
     }
     

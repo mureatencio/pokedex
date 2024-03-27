@@ -32,6 +32,11 @@ protocol APIServiceProtocol {
     func getPokemonDetails(for url: String, completion: @escaping (Result<Pokemon, NetworkError>) -> Void)
 }
 
+struct PokemonAPI {
+    static let APIURL = "https://pokeapi.co/api/v2"
+    static let APISpriteURL = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/"
+}
+
 // MARK: - API Service implementation
 
 class APIService: APIServiceProtocol {
@@ -47,7 +52,7 @@ class APIService: APIServiceProtocol {
     // MARK: - API call to fetch Pokemon characters list
     
     func getPokemonCharacters(offset: Int, completion: @escaping (Result<PokemonServiceResponse, NetworkError>) -> Void){
-        guard let url = URL(string: "https://pokeapi.co/api/v2/pokemon/?offset=\(offset)&limit=\(pageSize)") else {
+        guard let url = URL(string: "\(PokemonAPI.APIURL)/pokemon/?offset=\(offset)&limit=\(pageSize)") else {
             completion(.failure(.badUrl))
             return
         }
