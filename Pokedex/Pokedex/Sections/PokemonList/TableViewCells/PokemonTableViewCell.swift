@@ -29,7 +29,7 @@ class PokemonTableViewCell: UITableViewCell {
 
         // Style the components
         pokemonImageView.contentMode = .scaleAspectFit
-        nameLabel.font = .systemFont(ofSize: 16)
+        nameLabel.font = .systemFont(ofSize: 24)
         
         // Layout the components
         pokemonImageView.translatesAutoresizingMaskIntoConstraints = false
@@ -39,8 +39,8 @@ class PokemonTableViewCell: UITableViewCell {
             // Image View Constraints
             pokemonImageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10),
             pokemonImageView.centerYAnchor.constraint(equalTo: centerYAnchor),
-            pokemonImageView.widthAnchor.constraint(equalToConstant: 44),
-            pokemonImageView.heightAnchor.constraint(equalToConstant: 44),
+            pokemonImageView.widthAnchor.constraint(equalToConstant: 52),
+            pokemonImageView.heightAnchor.constraint(equalToConstant: 52),
 
             // Label Constraints
             nameLabel.leadingAnchor.constraint(equalTo: pokemonImageView.trailingAnchor, constant: 10),
@@ -51,7 +51,7 @@ class PokemonTableViewCell: UITableViewCell {
 
     // Configure the cell with a ViewModel
     func configure(with viewModel: PokemonListItemViewModel) {
-        nameLabel.text = viewModel.name
+        nameLabel.text = viewModel.name.capitalized
         
         if let validSpriteUrl = viewModel.spriteUrl, let imageUrl = URL(string: validSpriteUrl) {
             pokemonImageView.kf.setImage(

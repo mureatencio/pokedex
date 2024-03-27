@@ -74,7 +74,7 @@ class PokemonListViewController: UIViewController {
         tableView.delegate = self
         tableView.prefetchDataSource = self
         tableView.rowHeight = UITableView.automaticDimension
-        tableView.estimatedRowHeight = 44.0
+        tableView.rowHeight = 64.0
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
     }
     
