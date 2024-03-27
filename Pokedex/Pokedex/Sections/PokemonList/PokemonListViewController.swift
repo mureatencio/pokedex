@@ -6,12 +6,14 @@
 import UIKit
 
 class PokemonListViewController: UIViewController {
+    // Mark: Coordinator
+    var coordinator: MainCoordinator?
     
     // MARK: - Properties
     lazy var pokemonListViewModel: PokemonListViewModel = {
-       PokemonListViewModel()
+        PokemonListViewModel()
     }()
-
+    
     // MARK: - UI Components
     private let tableView = UITableView()
     private let loadingIndicator = UIActivityIndicatorView()
@@ -136,8 +138,6 @@ extension PokemonListViewController: UITableViewDataSource, UITableViewDelegate,
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         let selectedPokemonUrl = self.pokemonListViewModel.pokemonViewModels[indexPath.row].url
-        let detailsVC = PokemonDetailsViewController()
-        detailsVC.pokemonViewModel = PokemonViewModel(url: selectedPokemonUrl)
-        self.navigationController?.pushViewController(detailsVC, animated: true)
+        coordinator?.showPokemonDetails(with: PokemonViewModel(url: selectedPokemonUrl))
     }
 }

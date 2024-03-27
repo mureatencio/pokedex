@@ -8,18 +8,27 @@ import UIKit
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
+    var coordinator: MainCoordinator?
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         guard let windowScene = (scene as? UIWindowScene) else { return }
+
+        // Create main navigation controller
+        let navController = UINavigationController()
+        // Initialize the coordinator with the navigation controller
+        let coordinator = MainCoordinator(navigationController: navController)
+        // Start the coordinator
+        coordinator.start()
+        // Create the window using the scene
         let window = UIWindow(windowScene: windowScene)
-        
-        let viewController = PokemonListViewController()
-        let navigation = UINavigationController(rootViewController: viewController)
-        window.rootViewController = navigation
-        
+        // Assign the navigation controller as the rootViewController
+        window.rootViewController = navController
+
+        // Make window visible
         self.window = window
         window.makeKeyAndVisible()
     }
+
 
     func sceneDidDisconnect(_ scene: UIScene) {
         // Called as the scene is being released by the system.
