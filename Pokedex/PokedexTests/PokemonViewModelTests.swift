@@ -24,7 +24,7 @@ final class PokemonViewModelTests: XCTestCase {
     }
 
     func testGetPokemonDetailsSuccess() {
-        let pokemonDetails = Pokemon(baseExperience: 64, cries: Cries(latest: "cries_url"), height: 7, identifier: 1, name: "Bulbasaur", sprites: Sprites.init(frontDefault: "img_url"), types: [PokemonType(type: TypeDetail(name: "Grass"))], weight: 69)
+        let pokemonDetails = Pokemon(baseExperience: 64, height: 7, identifier: 1, name: "Bulbasaur", sprites: Sprites.init(frontDefault: "img_url"), types: [PokemonType(type: TypeDetail(name: "Grass"))], weight: 69)
         mockService.getPokemonDetailsResult = .success(pokemonDetails)
 
         let expectation = self.expectation(description: "Data fetch success")

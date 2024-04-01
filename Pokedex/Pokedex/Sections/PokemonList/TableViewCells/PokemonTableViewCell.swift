@@ -6,6 +6,7 @@
 import UIKit
 import Kingfisher
 
+// Custom UITableViewCell to display a Pokemon thumbnail and name
 class PokemonTableViewCell: UITableViewCell {
     // UI Components
     let pokemonImageView = UIImageView()

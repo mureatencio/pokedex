@@ -5,11 +5,14 @@
 
 import UIKit
 
+// MARK: Coordinator protocol
 protocol Coordinator {
     var childCoordinators: [Coordinator] { get set }
     func start()
 }
 
+// MARK: MainCoordinator
+// Coordinator pattern to manage navigation between view controllers
 class MainCoordinator: Coordinator {
     var childCoordinators = [Coordinator]()
     var navigationController: UINavigationController

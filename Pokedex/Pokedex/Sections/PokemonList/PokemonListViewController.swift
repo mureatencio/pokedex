@@ -59,6 +59,7 @@ class PokemonListViewController: UIViewController {
         ])
     }
     
+    // Setting up the table view properties
     private func setupTableView() {
         tableView.register(PokemonTableViewCell.self, forCellReuseIdentifier: "PokemonTableViewCell")
         tableView.separatorColor = .clear

@@ -6,10 +6,8 @@
 import Foundation
 
 // MARK: - Pokemon
-
 struct Pokemon: Codable {
     let baseExperience: Int
-    let cries: Cries
     let height: Int
     let identifier: Int
     let name: String
@@ -20,15 +18,11 @@ struct Pokemon: Codable {
     enum CodingKeys: String, CodingKey {
         case baseExperience = "base_experience"
         case identifier = "id"
-        case cries, height, name, sprites, types, weight
+        case height, name, sprites, types, weight
     }
 }
 
 // MARK: - Nested types
-
-struct Cries: Codable {
-    let latest: String
-}
 
 struct Sprites: Codable {
     let frontDefault: String

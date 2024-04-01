@@ -27,9 +27,6 @@ class MockData {
     static let pokemonDetailsJSON = """
         {
            "base_experience": 64,
-           "cries": {
-              "latest": "https://example.com/bulbasaur-cries.mp3"
-           },
            "height": 7,
            "id": 1,
            "name": "bulbasaur",

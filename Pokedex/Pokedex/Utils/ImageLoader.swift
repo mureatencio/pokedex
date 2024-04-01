@@ -8,8 +8,10 @@ import UIKit
 
 // Utility class to load images from a URL into a UIImageView
 class ImageLoader {
+    // Define a default placeholder image
     static let placeholderImage = UIImage(named: "pokeball")
     
+    // Load an image from a URL into an UIImageView
     static func loadImage(urlString: String?, into imageView: UIImageView) {
         // Define a default placeholder image
         let defaultPlaceholder = ImageLoader.placeholderImage

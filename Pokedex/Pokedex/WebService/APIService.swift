@@ -12,6 +12,8 @@ enum NetworkError: Error {
     case decodingError
 }
 
+// MARK: - Network Error messages
+// Provide localized error messages for user feedback
 extension NetworkError {
     var errorMessage: String {
         switch self {
@@ -32,13 +34,13 @@ protocol APIServiceProtocol {
     func getPokemonDetails(for url: String, completion: @escaping (Result<Pokemon, NetworkError>) -> Void)
 }
 
+// Struct containing API URLs
 struct PokemonAPI {
     static let APIURL = "https://pokeapi.co/api/v2"
     static let APISpriteURL = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/"
 }
 
 // MARK: - API Service implementation
-
 class APIService: APIServiceProtocol {
     // MARK: - Properties
     private let session: URLSessionProtocol
@@ -50,13 +52,14 @@ class APIService: APIServiceProtocol {
     }
     
     // MARK: - API call to fetch Pokemon characters list
-    
     func getPokemonCharacters(offset: Int, completion: @escaping (Result<PokemonServiceResponse, NetworkError>) -> Void){
+        // Define url with offset and page size
         guard let url = URL(string: "\(PokemonAPI.APIURL)/pokemon/?offset=\(offset)&limit=\(pageSize)") else {
             completion(.failure(.badUrl))
             return
         }
-    
+        
+        // Perform data task
         session.dataTask(with: url) { data, response, error in
             guard let data = data, error == nil else {
                 completion(.failure(.invalidData))
@@ -74,13 +77,14 @@ class APIService: APIServiceProtocol {
     }
     
     // MARK: - API call to fetch Pokemon details
-    
     func getPokemonDetails(for url: String, completion: @escaping (Result<Pokemon, NetworkError>) -> Void) {
+        // Define url to retrieve pokemon character details
         guard let url = URL(string: url) else {
             completion(.failure(.badUrl))
             return
         }
         
+        // Perform data task
         session.dataTask(with: url) { data, response, error in
             guard let data = data, error == nil else {
                 completion(.failure(.invalidData))

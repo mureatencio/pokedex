@@ -6,7 +6,7 @@
 import Foundation
 
 // MARK: - PokemonServiceResponse
-
+// This struct is used to decode the JSON response from the API call to fetch the list of Pokemon characters.
 struct PokemonServiceResponse: Codable {
     let count: Int
     let next: String?
