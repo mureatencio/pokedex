@@ -7,7 +7,7 @@ import UIKit
 
 class PokemonListViewController: UIViewController {
     // Mark: Coordinator
-    var coordinator: MainCoordinator?
+    let coordinator: MainCoordinator!
     
     // MARK: - Properties
     lazy var pokemonListViewModel: PokemonListViewModel = {
@@ -17,6 +17,16 @@ class PokemonListViewController: UIViewController {
     // MARK: - UI Components
     private let tableView = UITableView()
     private let loadingIndicator = UIActivityIndicatorView()
+    
+    // MARK: - Init
+    init(coordinator: MainCoordinator) {
+        self.coordinator = coordinator
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     // MARK: - View Controller Lifecycle
     override func viewDidLoad() {
@@ -84,13 +94,10 @@ class PokemonListViewController: UIViewController {
     // MARK: - Error dialog handling
     
     private func showErrorAlert(message: String) {
-        let alert = UIAlertController(title: NSLocalizedString("AlertTitle_ErrorDialog", comment: "Error dialog title"), message: message, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: NSLocalizedString("AlertButton_Retry", comment: "Error dialog retry button"), style: .default, handler: { [weak self] _ in
-            // Retry button pressed
+        coordinator?.showRetryAlert(message: message) { [weak self] in
             self?.showActivityIndicator(true)
             self?.pokemonListViewModel.getPokemonList()
-        }))
-        self.present(alert, animated: true, completion: nil)
+        }
     }
     
     // MARK: - Activity Indicator handling

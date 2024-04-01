@@ -6,6 +6,8 @@
 import UIKit
 
 class PokemonDetailsViewController: UIViewController {
+    // Mark: Coordinator
+    let coordinator: MainCoordinator!
     
     // MARK: - Properties
     let pokemonViewModel: PokemonViewModel!
@@ -22,6 +24,17 @@ class PokemonDetailsViewController: UIViewController {
     private let weightLabel = UILabel()
     private let loadingIndicator = UIActivityIndicatorView()
     
+    // MARK: - Init
+    init(pokemonViewModel: PokemonViewModel, coordinator: MainCoordinator) {
+        self.pokemonViewModel = pokemonViewModel
+        self.coordinator = coordinator
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     // MARK: - View Controller Lifecycle
     
     override func viewDidLoad() {
@@ -30,15 +43,6 @@ class PokemonDetailsViewController: UIViewController {
         setupLoadingIndicator()
         setupLayout()
         initViewModel()
-    }
-
-    init(pokemonViewModel: PokemonViewModel!) {
-        self.pokemonViewModel = pokemonViewModel
-        super.init(nibName: nil, bundle: nil)
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
     }
     
     // MARK: - View Model setup
@@ -161,11 +165,6 @@ class PokemonDetailsViewController: UIViewController {
     
     // MARK: - Error Alert management
     private func showErrorAlert(message: String) {
-        let alert = UIAlertController(title: NSLocalizedString("AlertTitle_ErrorDialog", comment: "Error dialog title"), message: message, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: NSLocalizedString("AlertButton_Ok", comment: "Error dialog title"), style: .default, handler: { [weak self] _ in
-            // Pop view since there is nothing to show
-            self?.navigationController?.popViewController(animated: true)
-        }))
-        self.present(alert, animated: true, completion: nil)
+        coordinator.showDetailsErrorAlert(message: message)
     }
 }
