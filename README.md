@@ -1,12 +1,29 @@
 
 # PokemonListApp
 
-This app lists Pokemon using data from PokéAPI (https://pokeapi.co). Users can see names of Pokemon and tap on them to find out more about each one.
+This app lists all existing Pokemon using data from PokéAPI (https://pokeapi.co). Users can see names and thumbnails of Pokemon and tap on them to find out more details about each one.
 
 ## Features
 
-- **List of Pokemon**: Displays names of Pokemon.
+- **List of Pokemon**: Paginated list names and thumbnails of Pokemon.
+<img src="screenshots/list_screenshot.png" width="258" height="558"/>
+
 - **Details View**: Shows more information like abilities and stats after tapping a Pokemon name.
+<img src="screenshots/details_screenshot.png" width="258" height="558"/>
+
+- **Localization**: UI element texts are localized to English and Spanish, according to device preferences.
+<img src="screenshots/localization_screenshot.png" width="258" height="558"/>
+
+- **Tests**: Project includes unit tests covering the majority of the code and mocking API calls.
+
+## Stack
+- MVVM-C
+- UIKIT
+- Networking
+- API Mocking
+- Infinite/Paginated scroll
+- API error management/recovery
+- Localization
 
 ## How to Run
 
