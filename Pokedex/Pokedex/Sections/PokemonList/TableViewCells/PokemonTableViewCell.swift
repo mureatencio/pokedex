@@ -31,6 +31,8 @@ class PokemonTableViewCell: UITableViewCell {
         // Style the components
         pokemonImageView.contentMode = .scaleAspectFit
         nameLabel.font = .systemFont(ofSize: 24)
+        nameLabel.textColor = UIColor.white
+        backgroundColor = UIColor.clear
         
         // Layout the components
         pokemonImageView.translatesAutoresizingMaskIntoConstraints = false

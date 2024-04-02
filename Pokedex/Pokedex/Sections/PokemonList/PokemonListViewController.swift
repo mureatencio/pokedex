@@ -17,7 +17,8 @@ class PokemonListViewController: UIViewController {
     // MARK: - UI Components
     private let tableView = UITableView()
     private let loadingIndicator = UIActivityIndicatorView()
-    
+    private let gradientLayer = CAGradientLayer()
+
     // MARK: - Init
     init(coordinator: MainCoordinator) {
         self.coordinator = coordinator
@@ -35,6 +36,13 @@ class PokemonListViewController: UIViewController {
         setupTableView()
         setupLoadingIndicator()
         initViewModel()
+        setupGradientLayer()
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        // Update the gradient layer's frame to match the view bounds
+        gradientLayer.frame = view.bounds
     }
     
     // MARK: - View Model setup
@@ -56,6 +64,19 @@ class PokemonListViewController: UIViewController {
         pokemonListViewModel.getPokemonList()
     }
     
+    // MARK: - Setting background gradient
+    private func setupGradientLayer() {
+        // Set an array of Core Graphics colors (.cgColor) to create the gradient.
+        gradientLayer.colors = [UIColor.systemTeal.cgColor, UIColor.systemBlue.cgColor]
+        
+        // Rasterize this static layer to improve app performance.
+        gradientLayer.shouldRasterize = true
+        gradientLayer.rasterizationScale = UIScreen.main.scale
+        
+        // Apply the gradient to the background
+        view.layer.insertSublayer(gradientLayer, at: 0)
+    }
+    
     // MARK: - Autolayout setup
     private func setupLoadingIndicator() {
         loadingIndicator.translatesAutoresizingMaskIntoConstraints = false
@@ -73,6 +94,7 @@ class PokemonListViewController: UIViewController {
     private func setupTableView() {
         tableView.register(PokemonTableViewCell.self, forCellReuseIdentifier: "PokemonTableViewCell")
         tableView.separatorColor = .clear
+        tableView.backgroundColor = .clear
         tableView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(tableView)
         

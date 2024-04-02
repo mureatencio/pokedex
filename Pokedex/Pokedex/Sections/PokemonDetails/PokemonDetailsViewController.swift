@@ -16,13 +16,16 @@ class PokemonDetailsViewController: UIViewController {
     private let scrollView = UIScrollView()
     private let contentView = UIView()
     private let imageView = UIImageView()
-    private let nameLabel = UILabel()
+    private let nameLabel = RoundedBorderLabel()
     private let idLabel = UILabel()
     private let typesLabel = UILabel()
     private let baseExperienceLabel = UILabel()
     private let heightLabel = UILabel()
     private let weightLabel = UILabel()
     private let loadingIndicator = UIActivityIndicatorView()
+    private let progressBar = CapsuleProgressBar()
+    private let stackView = UIStackView()
+    private let gradientLayer = CAGradientLayer()
     
     // MARK: - Init
     init(pokemonViewModel: PokemonViewModel, coordinator: MainCoordinator) {
@@ -41,8 +44,15 @@ class PokemonDetailsViewController: UIViewController {
         super.viewDidLoad()
         setupScrollView()
         setupLoadingIndicator()
-        setupLayout()
+        setupStackView()
         initViewModel()
+        setupGradientLayer()
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        // Update the gradient layer's frame to match the view bounds
+        gradientLayer.frame = view.bounds
     }
     
     // MARK: - View Model setup
@@ -62,8 +72,20 @@ class PokemonDetailsViewController: UIViewController {
         }
     }
     
-    // MARK: - Autolayout setup
+    // MARK: - Setting background gradient
+    private func setupGradientLayer() {
+        // Set an array of Core Graphics colors (.cgColor) to create the gradient.
+        gradientLayer.colors = [UIColor.systemTeal.cgColor, UIColor.systemBlue.cgColor]
+        
+        // Rasterize this static layer to improve app performance.
+        gradientLayer.shouldRasterize = true
+        gradientLayer.rasterizationScale = UIScreen.main.scale
+        
+        // Apply the gradient to the background
+        view.layer.insertSublayer(gradientLayer, at: 0)
+    }
     
+    // MARK: - Autolayout setup
     private func setupScrollView() {
         view.backgroundColor = .white
         scrollView.translatesAutoresizingMaskIntoConstraints = false
@@ -98,49 +120,33 @@ class PokemonDetailsViewController: UIViewController {
     }
     
     // MARK: - UI Setup
-    private func setupLayout() {
-        // Initial setup for each UI component
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        nameLabel.translatesAutoresizingMaskIntoConstraints = false
-        let idLabel = UILabel()
-        idLabel.translatesAutoresizingMaskIntoConstraints = false
-        heightLabel.translatesAutoresizingMaskIntoConstraints = false
-        weightLabel.translatesAutoresizingMaskIntoConstraints = false
-        typesLabel.translatesAutoresizingMaskIntoConstraints = false
-        baseExperienceLabel.translatesAutoresizingMaskIntoConstraints = false
+    private func setupStackView() {
+        stackView.axis = .vertical
+        stackView.spacing = 10
+        stackView.alignment = .center
+        stackView.translatesAutoresizingMaskIntoConstraints = false
         
-        // Add components to contentView
-        [imageView, nameLabel, idLabel, heightLabel, weightLabel, typesLabel, baseExperienceLabel].forEach {
-            contentView.addSubview($0)
+        // Add components to stackView instead of contentView
+        [imageView, nameLabel, idLabel, heightLabel, weightLabel, typesLabel, baseExperienceLabel, progressBar].forEach {
+            stackView.addArrangedSubview($0)
         }
         
-        // UI constraints
+        contentView.addSubview(stackView)
+        
+        // Set imageView's height and width
+        imageView.heightAnchor.constraint(equalToConstant: 200).isActive = true
+        imageView.widthAnchor.constraint(equalToConstant: 200).isActive = true
+        
+        // Set progressBar's width and height
+        progressBar.heightAnchor.constraint(equalToConstant: 20).isActive = true
+        progressBar.widthAnchor.constraint(equalToConstant: view.frame.width - 40).isActive = true
+        
+        // Constraints for stackView
         NSLayoutConstraint.activate([
-            imageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 20),
-            imageView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
-            imageView.widthAnchor.constraint(equalToConstant: 200),
-            imageView.heightAnchor.constraint(equalToConstant: 200),
-            
-            nameLabel.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 20),
-            nameLabel.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
-            
-            idLabel.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 10),
-            idLabel.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
-            
-            heightLabel.topAnchor.constraint(equalTo: idLabel.bottomAnchor, constant: 10),
-            heightLabel.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
-            
-            weightLabel.topAnchor.constraint(equalTo: heightLabel.bottomAnchor, constant: 10),
-            weightLabel.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
-            
-            typesLabel.topAnchor.constraint(equalTo: weightLabel.bottomAnchor, constant: 10),
-            typesLabel.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
-            
-            baseExperienceLabel.topAnchor.constraint(equalTo: typesLabel.bottomAnchor, constant: 10),
-            baseExperienceLabel.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
-            
- 
-            contentView.bottomAnchor.constraint(equalTo: baseExperienceLabel.bottomAnchor, constant: 20)
+            stackView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 20),
+            stackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            stackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            stackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -20)
         ])
     }
     
@@ -148,14 +154,25 @@ class PokemonDetailsViewController: UIViewController {
     
     private func updateUI() {
         self.navigationItem.title = pokemonViewModel.displayName
+        view.backgroundColor = UIColor.blue
         nameLabel.text = pokemonViewModel.displayName
-        nameLabel.font = UIFont.boldSystemFont(ofSize: 24)
         idLabel.text = pokemonViewModel.displayIdentifier
+        idLabel.font = UIFont.boldSystemFont(ofSize: 16)
+        idLabel.textColor = UIColor.white
         heightLabel.text = pokemonViewModel.displayHeight
+        heightLabel.font = UIFont.boldSystemFont(ofSize: 16)
+        heightLabel.textColor = UIColor.white
         weightLabel.text = pokemonViewModel.displayWeight
+        weightLabel.font = UIFont.boldSystemFont(ofSize: 16)
+        weightLabel.textColor = UIColor.white
         typesLabel.text = pokemonViewModel.displayTypes
+        typesLabel.font = UIFont.boldSystemFont(ofSize: 16)
+        typesLabel.textColor = UIColor.white
         baseExperienceLabel.text = pokemonViewModel.displayBaseExperience
+        baseExperienceLabel.font = UIFont.boldSystemFont(ofSize: 16)
+        baseExperienceLabel.textColor = UIColor.white
         ImageLoader.loadImage(urlString: pokemonViewModel.imageUrl?.absoluteString, into: imageView)
+        progressBar.progress = CGFloat(pokemonViewModel.baseExperienceValue)
     }
     
     // MARK: - Activity Indicator visibility

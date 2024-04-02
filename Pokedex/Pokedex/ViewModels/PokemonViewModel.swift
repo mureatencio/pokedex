@@ -49,7 +49,11 @@ class PokemonViewModel {
     }
     
     var displayBaseExperience: String {
-        "\(NSLocalizedString("Property_BaseXP", comment: "Base XP title")): \(pokemon?.baseExperience ?? 0) XP"
+        "\(NSLocalizedString("Property_BaseXP", comment: "Base XP title")): \(pokemon?.baseExperience ?? 0)/360 XP"
+    }
+    
+    var baseExperienceValue: Int {
+        pokemon?.baseExperience ?? 0
     }
     
     var displayHeight: String {
@@ -61,6 +65,6 @@ class PokemonViewModel {
     }
     
     var displayTypes: String {
-        "\(NSLocalizedString("Property_Types", comment: "Types title")): \(pokemon?.types.map { $0.type.name.capitalized }.joined(separator: ", ") ?? "")"
+        "\(NSLocalizedString("Property_Types", comment: "Types title")): \(PokemonTypeEmojiConverter.emojis(for: pokemon?.types ?? []))"
     }
 }
