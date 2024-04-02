@@ -34,8 +34,8 @@ final class PokemonViewModelTests: XCTestCase {
             XCTAssertEqual(self.viewModel.imageUrl, URL(string: "img_url"))
             XCTAssertEqual(self.viewModel.displayHeight, "Height: 7 dm")
             XCTAssertEqual(self.viewModel.displayWeight, "Weight: 69 kg")
-            XCTAssertEqual(self.viewModel.displayBaseExperience, "Base XP: 64 XP")
-            XCTAssertEqual(self.viewModel.displayTypes, "Types: Grass")
+            XCTAssertEqual(self.viewModel.displayBaseExperience, "Base XP: 64/360 XP")
+            XCTAssertEqual(self.viewModel.displayTypes, "Types: 🍃")
             expectation.fulfill()
         }
         viewModel.fetchPokemonDetails(from: "https://pokeapi.co/api/v2/pokemon/1/")

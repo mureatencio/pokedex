@@ -10,6 +10,8 @@
 		4902ECD72BBBBB8D00F40A40 /* RoundedBorderLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4902ECD62BBBBB8D00F40A40 /* RoundedBorderLabel.swift */; };
 		4902ECD92BBBBBB600F40A40 /* CapsuleProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4902ECD82BBBBBB600F40A40 /* CapsuleProgressBar.swift */; };
 		4902ECDB2BBBBE3900F40A40 /* PokemonTypeEmojiConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4902ECDA2BBBBE3900F40A40 /* PokemonTypeEmojiConverter.swift */; };
+		4902ECDD2BBBC47400F40A40 /* PokemonTypeEmojiConverterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4902ECDC2BBBC47400F40A40 /* PokemonTypeEmojiConverterTests.swift */; };
+		4902ECDE2BBBC4BA00F40A40 /* PokemonTypeEmojiConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4902ECDA2BBBBE3900F40A40 /* PokemonTypeEmojiConverter.swift */; };
 		490811302BB3D73800DFF127 /* PokemonTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4908112F2BB3D73800DFF127 /* PokemonTableViewCell.swift */; };
 		4908113C2BB3EBE600DFF127 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4908113B2BB3EBE600DFF127 /* Coordinator.swift */; };
 		49B4479B2BABB346001D3FBD /* URLSessionProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49B4479A2BABB346001D3FBD /* URLSessionProtocol.swift */; };
@@ -66,6 +68,7 @@
 		4902ECD62BBBBB8D00F40A40 /* RoundedBorderLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedBorderLabel.swift; sourceTree = "<group>"; };
 		4902ECD82BBBBBB600F40A40 /* CapsuleProgressBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CapsuleProgressBar.swift; sourceTree = "<group>"; };
 		4902ECDA2BBBBE3900F40A40 /* PokemonTypeEmojiConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonTypeEmojiConverter.swift; sourceTree = "<group>"; };
+		4902ECDC2BBBC47400F40A40 /* PokemonTypeEmojiConverterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonTypeEmojiConverterTests.swift; sourceTree = "<group>"; };
 		4908112F2BB3D73800DFF127 /* PokemonTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonTableViewCell.swift; sourceTree = "<group>"; };
 		4908113B2BB3EBE600DFF127 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		49B4479A2BABB346001D3FBD /* URLSessionProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSessionProtocol.swift; sourceTree = "<group>"; };
@@ -196,12 +199,12 @@
 		49B84D612BA928960015974C /* Pokedex */ = {
 			isa = PBXGroup;
 			children = (
-				4902ECD52BBBBB7100F40A40 /* CustomViews */,
 				49B84D9A2BA928CE0015974C /* Model */,
 				49B84D932BA928CE0015974C /* Sections */,
 				49B84D962BA928CE0015974C /* ViewModels */,
 				4908113A2BB3EB4E00DFF127 /* Coordinator */,
 				49B84D982BA928CE0015974C /* WebService */,
+				4902ECD52BBBBB7100F40A40 /* CustomViews */,
 				49B84DBF2BAB5CDB0015974C /* Utils */,
 				49B84DAA2BAA6D0F0015974C /* Resources */,
 				49B84D622BA928960015974C /* AppDelegate.swift */,
@@ -221,6 +224,7 @@
 				49B447A02BABB4DC001D3FBD /* APIServiceTests.swift */,
 				49B447AD2BABCB39001D3FBD /* PokemonListViewModelTests.swift */,
 				49B447B22BABDB85001D3FBD /* PokemonViewModelTests.swift */,
+				4902ECDC2BBBC47400F40A40 /* PokemonTypeEmojiConverterTests.swift */,
 			);
 			path = PokedexTests;
 			sourceTree = "<group>";
@@ -486,8 +490,10 @@
 				49B447AF2BABCBDE001D3FBD /* URLSessionProtocol.swift in Sources */,
 				49B447AE2BABCB39001D3FBD /* PokemonListViewModelTests.swift in Sources */,
 				49B447A62BABB6E9001D3FBD /* PokemonServiceResponse.swift in Sources */,
+				4902ECDD2BBBC47400F40A40 /* PokemonTypeEmojiConverterTests.swift in Sources */,
 				49B447B32BABDB85001D3FBD /* PokemonViewModelTests.swift in Sources */,
 				49B4479E2BABB3B9001D3FBD /* MockURLSession.swift in Sources */,
+				4902ECDE2BBBC4BA00F40A40 /* PokemonTypeEmojiConverter.swift in Sources */,
 				49B447A42BABB561001D3FBD /* APIService.swift in Sources */,
 				49B447B42BABDCE8001D3FBD /* PokemonViewModel.swift in Sources */,
 				49B447B02BABCBE1001D3FBD /* Pokemon.swift in Sources */,
