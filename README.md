@@ -18,7 +18,7 @@ This app lists all existing Pokemon using data from PokéAPI (https://pokeapi.co
 
 ## Stack
 - MVVM-C
-- UIKIT
+- UIKIT + Autolayout
 - Networking
 - API Mocking
 - Infinite/Paginated scroll
